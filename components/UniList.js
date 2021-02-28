@@ -6,13 +6,18 @@ import firebase from './firebase';
 
 export default function UniList({navigation,data}) {
     const [UniNames,setUniNames]=useState([]);
-        firebase.database().ref('/Student/UniName').on('value',function(data){
-            setUniNames(UniNames.push(data.val()));})
+    useEffect(()=>{
+    firebase.database().ref('roles/Student/UniName').on('child_added',function(data){
+            setUniNames(data.val());
+          console.log(UniNames)
+          })
+        },[])
   return (
     <Container style={styles.container}>
         {UniNames &&
             UniNames.map((v)=>{
-  <Card>
+              return(
+          <Card>
             <CardItem button onPress={() => navigation.navigate('UniStudents', { val: v.uname,role:data.params.val })}>
               <Body>
                 <Text>
@@ -21,6 +26,7 @@ export default function UniList({navigation,data}) {
               </Body>
             </CardItem>
           </Card>
+              )
           })
 }
     </Container>

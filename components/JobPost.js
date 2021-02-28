@@ -65,7 +65,7 @@ export default function JobPost({navigation}) {
              <Textarea rowSpan={6} bordered placeholder="Job Description"  
               onChangeText={text=>setJobDesc(text)}/>
             </Item>
-            <Button rounded dark
+            <Button style={styles.post} dark
             onPress={()=>{PostJob()}}>
             <Text>Post Job</Text>
           </Button>
@@ -83,6 +83,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  post:{
+    width:250,
+    marginLeft:80,
+    color:'white'
   },
     image:{
     flex:1,

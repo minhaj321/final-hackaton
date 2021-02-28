@@ -28,7 +28,7 @@ export default function LogIn({navigation}) {
       console.log(data.val().role)
 setRole(data.val().role)
 if(data.val().role=='Student'){
-  navigation.navigate('JobList');
+  navigation.navigate('JobList',{data:null});
 }
 else if(data.val().role=='Admin'){
   navigation.navigate('AdminPage');
@@ -107,8 +107,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   input:{
-    marginLeft:0,
+    marginLeft:5,
     width:350,
+    borderBottomWidth:4,
+    borderBottomColor:'black'
 
   },
     image:{

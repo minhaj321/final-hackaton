@@ -5,17 +5,19 @@ import firebase from './firebase';
 
 export default function JobList({navigation,data}) {
     const [JobList,setJobList]=useState([]);
-
-        firebase.database().ref(`/job`).on('value',function(data){
-            setJobList(JobList.push(data.val()))
+    useEffect(()=>{
+        firebase.database().ref(`/jobs`).on('child_added',function(data){
+          console.log(data.val())
+            setJobList(data.val())
         })
-  
+      },[])
 
   return (
     <Container style={styles.container}>
 <Content>
-{
-        JobList.map((v)=>{
+{ JobList &&
+        JobList.map((v,i)=>{return
+          (
             <Card>
             <CardItem header>
               <Text>{v.name}</Text>
@@ -38,7 +40,6 @@ export default function JobList({navigation,data}) {
             <CardItem footer>
               <Text>{v.web}</Text>
             </CardItem>
-            
             <CardItem footer>
                 <Button
                 onPress={()=>{navigation.navigate('JobForm',{val:v})}}
@@ -47,11 +48,11 @@ export default function JobList({navigation,data}) {
                 </Button>
             </CardItem>
          </Card>
-        })
+         ) })
 }
 </Content>
     </Container>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
